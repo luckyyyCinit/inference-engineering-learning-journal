@@ -1,21 +1,21 @@
 # inference-engineering-learning-journal
 
-ToDo
-three lab
--tinyLLLM
--minisglang
--nanovllm
+# ToDo
+> three lab
+> -tinyLLLM
+> -minisglang
+> -nanovllm
 
-Pending
-CS336 Lab1
+# Pending
+> CS336 Lab1
 
-Goal
-Build mental model first
+# Goal
+> Build mental model first
 
-Learning approach
-I use small inference systems to build a systems-level mental model before going deep into theory.
-I trace the end-to-end request lifecycle, identify core state transitions, and test my understanding by asking where the system can fail.
-I also map unfamiliar inference mechanisms to systems I already know, such as Kafka, Spring, producer-consumer patterns, and distributed state management.
+# Learning approach
+> I use small inference systems to build a systems-level mental model before going deep into theory.
+> I trace the end-to-end request lifecycle, identify core state transitions, and test my understanding by asking where the system can fail.
+> I also map unfamiliar inference mechanisms to systems I already know, such as Kafka, Spring, producer-consumer patterns, and distributed state management.
 The detailed notes below are written in Chinese for learning speed.
 
 
