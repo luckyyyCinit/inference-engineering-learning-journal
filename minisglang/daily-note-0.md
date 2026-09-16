@@ -45,3 +45,14 @@ Random-Liu的讲述方式就没有没用的公式，但这个缺少lab
 ## 🔗 Systems Analogy
 
 ## 🧠 Mental Model Update
+
+zero-to-sglang
+跑起真实 SGLang
+        ↓
+看到 scheduler / KV cache / batching
+        ↓
+mini-sglang
+亲手理解对应机制
+        ↓
+回 zero-to-sglang
+profile / benchmark / 看真实实现
