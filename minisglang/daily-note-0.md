@@ -41,6 +41,12 @@ Random-Liu的讲述方式就没有没用的公式，但这个缺少lab
 ## ❓ What I Don't Understand
 
 ## 🔥 Failure Hypotheses
+Got a rejection from AWS Sagemaker Hyperpod
+confused....
+Amazons's loss...
+It would be much more expensive to having me in the future
+No more university hire
+
 
 ## 🔗 Systems Analogy
 
