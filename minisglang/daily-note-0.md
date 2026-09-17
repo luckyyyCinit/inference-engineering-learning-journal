@@ -1,4 +1,4 @@
-# Day 0916 — setup and roadmap
+# Day 0916
 
 ## Goal
 
@@ -18,7 +18,14 @@ part1的公式部分暂时不用管
 
 Random-Liu的讲述方式就没有没用的公式，但这个缺少lab
 
-## What I Read
+## Today: What I Done
+tinyllm environment set up
+
+## Tomorrow: To Do
+pytorch 一天补基础
+完成tinyllm lab1
+看Random-Liu 第一章
+配置minisglang的环境
 
 
 
@@ -36,11 +43,9 @@ Random-Liu的讲述方式就没有没用的公式，但这个缺少lab
 | **Day 26–28**    | 第二实现对照              | `GeeeekExplorer/nano-vllm`：`engine/sequence.py`、`scheduler.py`、`block_manager.py`、`llm_engine.py` | 只比较三个问题：request state、scheduler、KV/block management | 能写出至少 3 个“共同本质”和 3 个“implementation choice”。nano-vLLM 只有约 1,200 行 Python，而且 engine 正好把 sequence、scheduler、block manager 分开。 |
 | **Day 29–30**    | 整合                      | 回到 Mini-SGLang                                             | 不看笔记，从头讲一次系统；整理一篇自己的 architecture note   | 能在 20–30 分钟内从 API request 一路讲到 scheduler/KV/model execution；明确列出下个月仍然不懂的 5 个问题 |
 
-## ✅ What I Understand
 
-## ❓ What I Don't Understand
 
-## 🔥 Failure Hypotheses
+## 🔥 Failure 
 Got a rejection from AWS Sagemaker Hyperpod
 confused....
 Amazons's loss...
@@ -48,7 +53,6 @@ It would be much more expensive to having me in the future
 No more university hire
 
 
-## 🔗 Systems Analogy
 
 ## 🧠 Mental Model Update
 
