@@ -2,11 +2,15 @@
 
 ## Goal
 
-## What I Read
+## 
 
-## ✅ What I Understand
+## Today: What I Done
+- 
 
-## ❓ What I Don't Understand
+## Tomorrow: To Do
+- 
+- 
+- 
 
 ## 🔥 Failure Hypotheses
 

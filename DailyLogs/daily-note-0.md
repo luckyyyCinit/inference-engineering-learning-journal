@@ -19,13 +19,13 @@ part1的公式部分暂时不用管
 Random-Liu的讲述方式就没有没用的公式，但这个缺少lab
 
 ## Today: What I Done
-tinyllm environment set up
+- tinyllm environment set up
 
 ## Tomorrow: To Do
-pytorch 一天补基础
-完成tinyllm lab1
-看Random-Liu 第一章
-配置minisglang的环境
+- pytorch 一天补基础
+- 完成tinyllm lab1
+- 看Random-Liu 第一章
+- 配置minisglang的环境
 
 
 

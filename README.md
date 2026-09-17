@@ -1,5 +1,11 @@
 # inference-engineering-learning-journal
 
+- `DailyLogs`  
+  records day-to-day learning progress and experiments
+
+- `TopicNotes`  
+  consolidates key concepts into structured, topic-based notes
+
 # ToDo
 > three lab
 > -tinyLLLM
