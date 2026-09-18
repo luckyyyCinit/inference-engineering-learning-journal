@@ -4,6 +4,18 @@ This repository documents my hands-on learning process in **LLM inference engine
 
 I am using small, readable inference systems to understand how modern LLM serving works from the inside out — from attention and model execution to KV cache, batching, scheduling, and distributed serving.
 
+## Roadmap
+
+### In Progress
+
+* Tiny LLM
+* Mini-SGLang
+* nano-vLLM
+
+### Pending
+
+* Stanford CS336 Assignment 1
+
 ## Repository Structure
 
 ### `DailyLogs`
@@ -80,19 +92,7 @@ My learning loop is roughly:
 
 `DailyLogs` capture the process, `TopicNotes` capture the resulting mental models, and `Labs` verify those models through implementation.
 
-## Roadmap
 
-### In Progress
-
-* Tiny LLM
-* Mini-SGLang
-* nano-vLLM
-
-### Pending
-
-* Stanford CS336 Assignment 1
-
-## Notes
 
 Detailed learning notes are primarily written in Chinese so I can reason and iterate quickly.
 
