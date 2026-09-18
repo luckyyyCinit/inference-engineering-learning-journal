@@ -59,15 +59,7 @@ tensor 的 `shape` 本身通常就是一个 tuple，所以一维 tensor 的 shap
 (8,)
 ```
 
-![image-20260918103328325](/Users/cen/Desktop/inference-engineering-learning-journal/DailyLogs/assets/image-20260918103328325.png)
-
-
-
-
-
-
-
-
+![image-20260918103618163](assets/image-20260918103618163.png)
 
 ### 
 
