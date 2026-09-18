@@ -1,16 +1,39 @@
 # Date X — Topic
 
-## Goal
-
-## 
 
 ## Today: What I Done
+- 
 - 
 
 ## Tomorrow: To Do
 - 
 - 
-- 
+
+
+
+## Notes
+
+### 
+
+
+
+### 
+
+
+
+### 
+
+
+
+### 
+
+
+
+### 
+
+
+
+
 
 ## 🔥 Failure Hypotheses
 
