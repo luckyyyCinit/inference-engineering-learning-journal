@@ -1,4 +1,4 @@
-# Day X — Topic
+# Date X — Topic
 
 ## Goal
 

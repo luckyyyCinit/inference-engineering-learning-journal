@@ -1,4 +1,4 @@
-# Day 2 — Prep for lab1
+# Day 0917 — Prep for lab1
 
 ## Goal
 
