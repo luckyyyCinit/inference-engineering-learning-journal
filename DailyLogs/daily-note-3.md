@@ -1,4 +1,4 @@
-# Date 3 — Topic vllm request的生命周期
+# Date 1020 — Topic vllm request的生命周期
 
 
 ## Today: What I Done
@@ -89,3 +89,7 @@ KV Connector 的前世今生
 
 ## 🧠 Mental Model Update
 Request Lifecycle → Scheduler / Continuous Batching → KV Cache → Prefill / Decode → 性能测量 → 高级分布式优化。
+之前太忙了，1112参加sglang在sf的submmit。kind of midterm，希望认识peers一起学习。
+从现在到sglang submit大概三周。我的study roadmap已经在比较和初期尝试中确定，
+接下来40hrs对整体的mental model不需要再学了，然后再花20hrs先自己探索一个submodule，我现在想的是schedule那里。
+sglang submit main stage主要是未来大的发展方向，breakout rooms和lab才是我需要关注的重点，就是寻找接下来投入的submodule
