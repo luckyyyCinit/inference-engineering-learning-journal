@@ -65,7 +65,7 @@ KV Connector 的前世今生
 理解共享输出循环如何把批量结果路由给逐请求生成器；
 判断结构化输出、投机解码、取消、LoRA 和并行拓扑怎样约束主循环；
 分清架构事实、合理推断与材料没有支持的性能结论。
-![alt text](image.png)
+![alt text](assets/image.png)
 
 
 
