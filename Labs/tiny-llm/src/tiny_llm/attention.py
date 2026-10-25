@@ -10,6 +10,17 @@ from .basics import softmax, linear
 # softmax 对哪个 dimension？
 # 最后为什么再 @ V？
 # MLX 里怎么只 transpose 最后两个维度
+
+    # """
+    # A simple implementation of scaled dot product attention. Assuming Q, K, V are of the same shape.
+    # Assuming mask is always a float array that you can add to the scores.
+    # """
+    # factor = mx.rsqrt(query.shape[-1]) if scale is None else scale
+    # scores = mx.matmul(query, key.swapaxes(-2, -1)) * factor
+    # if mask is not None:
+    #     scores = scores + mask
+    # return mx.matmul(softmax(scores, axis=-1), value)
+
 def scaled_dot_product_attention_simple(
     query: mx.array,
     key: mx.array,
@@ -17,22 +28,28 @@ def scaled_dot_product_attention_simple(
     scale: float | None = None,
     mask: mx.array | None = None,
 ) -> mx.array:
-    # 1. Q @ K^T
-    ...
+    # 1. transpose the last two dimensions
+    key_t = key.swapaxes(-2, -1)
 
-    # 2. scale
-    ...
+    # 2. matrix multiplication:
+    # batch-compute all Q_i · K_j dot products
+    scores = query @ key_t
 
-    # 3. mask
-    ...
+    # 3. scale
+    factor = mx.rsqrt(query.shape[-1]) if scale is None else scale
+    scores = scores * factor
 
-    # 4. softmax
-    ...
+    # 4. mask
+    if mask is not None:
+        scores = scores + mask
 
-    # 5. attention weights @ V
-    ...
-    pass
+    # 5. softmax -> attention weights
+    weights = mx.softmax(scores, axis=-1)
 
+    # 6. weighted sum of values
+    output = weights @ value
+
+    return output
 
 class SimpleMultiHeadAttention:
     def __init__(
