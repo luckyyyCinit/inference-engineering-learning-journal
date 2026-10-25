@@ -1,0 +1,21 @@
+[book]
+authors = ["Alex Chi", "Connor Zhang"]
+language = "en"
+src = "src"
+title = "Tiny-LLM — Build an LLM Serving System with MLX"
+description = "A hands-on course for systems engineers. Build and optimize an LLM serving system with MLX, then connect its inference state and context budget to a coding agent."
+
+[preprocessor.toc]
+command = "mdbook-toc"
+renderer = ["html"]
+
+[output.html]
+additional-css = ["custom.css"]
+git-repository-url = "https://github.com/skyzh/tiny-llm"
+
+[output.html.redirect]
+"/week2-05-decode-attention.html" = "week2-06-operator-lab.html"
+"/week2-06-simd-matrix-prefill.html" = "week2-05-simd-matrix-prefill.html"
+
+[preprocessor.katex]
+after = ["links"]

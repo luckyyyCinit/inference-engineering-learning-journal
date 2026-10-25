@@ -1,0 +1,1 @@
+<p style="text-align: center; margin-top: 3em"><small>Your feedback is greatly appreciated. Join our <a href="https://skyzh.dev/join/discord">Discord community</a>.<br>Found an issue? Open an issue or pull request at <a href="https://github.com/skyzh/tiny-llm">github.com/skyzh/tiny-llm</a>.<br>tiny-llm-book © 2025 by Alex Chi Z is licensed under CC BY-NC-SA 4.0.</small></p>

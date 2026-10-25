@@ -1,0 +1,177 @@
+# Week 1 Day 1: Attention and Multi-Head Attention
+
+The starter provides `softmax` through MLX so that Day 1 can focus on the attention data flow. Your required work is to
+complete `scaled_dot_product_attention_simple` and `SimpleMultiHeadAttention` in `src/tiny_llm/attention.py`, plus the
+`linear` helper in `src/tiny_llm/basics.py`. Other attention functions in the starter are for later days and are not part
+of this chapter.
+
+Start by running the focused Task 1 tests. The command refreshes the supplied Day 1 test in `tests/` before running it:
+
+```console
+pdm run test --week 1 --day 1 -- -k task_1
+```
+
+The supplied `softmax` cases pass in the untouched starter, while the attention cases fail. This expected red checkpoint
+shows the behavior that your attention implementation must add.
+
+An attention layer processes an input sequence and weighs the relevance of its different positions when producing each
+output. Attention is a key building block of Transformer models.
+
+[📚 Reading: Transformer Architecture](https://huggingface.co/learn/llm-course/chapter1/6)
+
+We use Qwen3, a decoder-only model, for text generation. The model takes a sequence of token IDs, maps them to embeddings,
+and produces logits for the next token at each sequence position. The generation loop will later use the final position's
+logits to choose the next token ID.
+
+[📚 Reading: LLM Inference, the Decode Phase](https://huggingface.co/learn/llm-course/chapter1/8)
+
+An attention layer takes a query, a key, and a value. In a basic implementation, all three have the same shape:
+`N.. x L x D`.
+
+`N..` represents zero or more batch dimensions. Within each batch, `L` is the sequence length and `D` is the embedding
+dimension for one attention head.
+
+For example, a sequence of 1,024 tokens with a head dimension of 512 is represented by a tensor of shape
+`N.. x 1024 x 512`.
+
+## Task 1: Implement `scaled_dot_product_attention_simple`
+
+In this task, we will implement scaled dot-product attention. We assume that the input tensors Q, K, and V have the same
+shape. Later chapters will introduce attention variants whose input shapes differ.
+
+```
+src/tiny_llm/attention.py
+```
+
+**📚 Readings**
+
+* [Annotated Transformer](https://nlp.seas.harvard.edu/annotated-transformer/)
+* [PyTorch Scaled Dot Product Attention API](https://pytorch.org/docs/stable/generated/torch.nn.functional.scaled_dot_product_attention.html) (assume `enable_gqa=False`, assume dim_k=dim_v=dim_q and H_k=H_v=H_q)
+* [MLX Scaled Dot Product Attention API](https://ml-explore.github.io/mlx/build/html/python/_autosummary/mlx.core.fast.scaled_dot_product_attention.html) (assume dim_k=dim_v=dim_q and H_k=H_v=H_q)
+* [Attention is All You Need](https://arxiv.org/abs/1706.03762)
+
+Implement `scaled_dot_product_attention_simple` using the formula below. The function takes query, key, and value tensors
+with the same shape, plus an optional additive mask `M`.
+
+$$
+  \text{Attention} = \text{softmax}(\frac{QK^T}{\sqrt{d_k}} + M)V
+$$
+
+Here, $\frac{1}{\sqrt{d_k}}$ is the default scale factor. Callers may supply a different scale factor.
+
+```
+L is seq_len, in PyTorch API it's S (source len)
+D is head_dim
+
+key: N.. x L x D
+value: N.. x L x D
+query: N.. x L x D
+output: N.. x L x D
+scale = 1/sqrt(D) if not specified
+```
+
+Use the supplied `softmax` helper for the required exercise. As an optional, ungraded bonus, replace its MLX call with
+your own numerically stable implementation: subtract the maximum value along `axis`, exponentiate the shifted values,
+then divide by their sum along the same axis. Preserve the helper's public API and output behavior.
+
+When this function is called from multi-head attention, the tensors will usually have these shapes:
+
+```
+key: 1 x H x L x D
+value: 1 x H x L x D
+query: 1 x H x L x D
+output: 1 x H x L x D
+mask: 1 x H x L x L
+```
+
+The function itself operates on the last two dimensions and must support any number of leading batch dimensions. The mask
+only needs a shape that can broadcast to the attention-score shape.
+
+Run the Task 1 checkpoint again after implementing the function:
+
+```
+pdm run test --week 1 --day 1 -- -k task_1
+```
+
+When this checkpoint turns green, your attention function supports arbitrary leading batch dimensions, optional masks,
+and default or explicit scaling.
+
+## Task 2: Implement `SimpleMultiHeadAttention`
+
+In this task, we will implement the multi-head attention layer.
+
+```
+src/tiny_llm/attention.py
+```
+
+**📚 Readings**
+
+* [Annotated Transformer](https://nlp.seas.harvard.edu/annotated-transformer/)
+* [PyTorch MultiHeadAttention API](https://docs.pytorch.org/docs/2.8/generated/torch.nn.MultiheadAttention.html) (assume dim_k=dim_v=dim_q and H_k=H_v=H_q)
+* [MLX MultiHeadAttention API](https://ml-explore.github.io/mlx/build/html/python/nn/_autosummary/mlx.nn.MultiHeadAttention.html) (assume dim_k=dim_v=dim_q and H_k=H_v=H_q)
+* [The Illustrated GPT-2 (Visualizing Transformer Language Models)](https://jalammar.github.io/illustrated-gpt2) helps you better understand what key, value, and query are.
+
+Implement `SimpleMultiHeadAttention`. The layer projects batches of query, key, and value vectors with the Q, K, and V
+weight matrices, then passes the projections to the attention function from Task 1. Finally, it applies the output projection
+O.
+
+First, implement the `linear` function in `basics.py`. It takes a tensor of shape `N.. x I`, a weight matrix of shape
+`O x I`, and an optional bias vector of shape `O`. Its output has shape `N.. x O`, where `I` is the input dimension and
+`O` is the output dimension.
+
+Use the focused linear tests as your next checkpoint:
+
+```console
+pdm run test --week 1 --day 1 -- -k test_task_2_linear
+```
+
+Before you implement `linear`, this checkpoint is red. When it turns green, `linear` supports optional bias across the
+tested precisions and devices.
+
+For `SimpleMultiHeadAttention`, the input tensors `query`, `key`, and `value` have shape `N x L x E`, where `E` is the
+embedding dimension for one token. The Q, K, and V projections each map `E` to `H x D`: `H` heads, each with dimension
+`D`. Reshape that final projection dimension into separate `H` and `D` dimensions.
+
+You now have a tensor of shape `N x L x H x D` for each projection. Before applying attention, transpose each one to
+`N x H x L x D`.
+
+- This treats each attention head as an independent batch, allowing attention to be calculated separately for each head
+  across sequence dimension `L`.
+- Leaving `H` after `L` would cause the matrix multiplication to mix the head and sequence dimensions. Each head must attend
+  only to token relationships within its own subspace.
+
+The attention function produces one output per head. Transpose the result back to `N x L x H x D`, reshape it to
+`N x L x (H x D)`, and apply the output projection.
+
+```
+E is hidden_size or embed_dim or dims or model_dim
+H is num_heads
+D is head_dim
+L is seq_len, in PyTorch API it's S (source len)
+
+w_q/w_k/w_v: (H x D) x E
+output/input: N x L x E
+w_o: E x (H x D)
+```
+
+Run the Task 2 checkpoint after implementing the layer:
+
+```console
+pdm run test --week 1 --day 1 -- -k task_2
+```
+
+When this checkpoint turns green, your layer projects query, key, and value tensors into independent attention heads and
+recombines their outputs through the final projection.
+
+You can run all tests for the day with:
+
+```console
+pdm run test --week 1 --day 1
+```
+
+When the full Day 1 suite turns green, you have a standalone multi-head attention layer that projects Q/K/V, evaluates
+each head independently, and recombines the result. Day 3 will generalize this attention mechanism to grouped-query
+attention for Qwen3; the `SimpleMultiHeadAttention` layer built here is a standalone exercise, not the model's exact call
+path.
+
+{{#include copyright.md}}
